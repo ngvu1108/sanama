@@ -8864,18 +8864,14 @@ end)
 ----------------------------------------------------//----------------------------------------------------
 --// PVP LEFT
 local Pvp_Left = Tab.Tab_Combat:addSection()
-
 local Setting_Pvp = Pvp_Left:addMenu('#Setting Pvp')
-
 local Current = Setting_Pvp:addLabel("Current Bounties : ")
 local Earn = Setting_Pvp:addLabel("Earned : ")
-
 local OldBounty = game:GetService("Players").LocalPlayer.leaderstats["Bounty/Honor"].Value
 local Bounty = tostring(game:GetService("Players").LocalPlayer.leaderstats["Bounty/Honor"].Value)
 local Earned = tostring(game:GetService("Players").LocalPlayer.leaderstats["Bounty/Honor"].Value - OldBounty)
-local sub = string.sub 
+local sub = string.sub
 local len = string.len
-
 spawn(function()
     while wait() do
         pcall(function()
@@ -8892,7 +8888,6 @@ spawn(function()
             elseif len(Bounty) <= 3 then
                 Bounty1 = Bounty
             end
-
             if len(Earned) == 4 then
                 Earned1 = sub(Earned,1,1).."."..sub(Earned,2,3).."K"
             elseif len(Earned) == 5 then
@@ -8915,7 +8910,6 @@ spawn(function()
         end)
     end
 end)
-
 local PvpWeaponList = {"Melee", "Sword", "Blox Fruit", "Gun"}
 Setting_Pvp:addDropdown("Select Weapon", PvpSelectedWeapon, PvpWeaponList, function(Value)
     PvpSelectedWeapon = Value
@@ -8959,7 +8953,6 @@ task.spawn(function()
         end)
     end
 end)
-
 local PvpTable = {
     "Above",
     "Bellow",
@@ -8980,12 +8973,10 @@ spawn(function()
         end
     end
 end)
-
 DisPvp = 10
 Setting_Pvp:addTextbox("Distance Pvp", DisPvp, function(Value)
     DisPvp = Value
 end)
-
 Setting_Pvp:addToggle("Player ESP", _G.ESPPlayer, function(Value)
     _G.ESPPlayer = Value
 end)
@@ -8998,7 +8989,6 @@ spawn(function()
                         if not v.Character.HumanoidRootPart:FindFirstChild("PlayerESP") then
                             local BillboardGui = Instance.new("BillboardGui")
                             local TextLabel = Instance.new("TextLabel")
-
                             BillboardGui.Parent = v.Character.HumanoidRootPart
                             BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
                             BillboardGui.Active = true
@@ -9007,13 +8997,12 @@ spawn(function()
                             BillboardGui.LightInfluence = 1.000
                             BillboardGui.Size = UDim2.new(0, 200, 0, 50)
                             BillboardGui.StudsOffset = Vector3.new(0, 2.5, 0)
-
                             TextLabel.Parent = BillboardGui
                             TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
                             TextLabel.BackgroundTransparency = 1.000
                             TextLabel.Size = UDim2.new(0, 200, 0, 50)
                             TextLabel.Font = Enum.Font.GothamBold
-						    TextLabel.FontSize = "Size14"
+    TextLabel.FontSize = "Size14"
                             TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
                             TextLabel.Text.Size = 35
                             TextLabel.TextStrokeTransparency = 0.5
@@ -9039,7 +9028,6 @@ spawn(function()
         end)
     end
 end)
-
 Setting_Pvp:addToggle("Enable Pvp", EnablePVP, function(Value)
     EnablePVP = Value
 end)
@@ -9057,32 +9045,30 @@ end)
 ----------------------------------------------------//----------------------------------------------------
 --// PVP RIGHT
 local Pvp_Right = Tab.Tab_Combat:addSection()
-
 local Main_Pvp = Pvp_Right:addMenu("#Combat Player")
-
 local PlayerList = {}
-for i,v in pairs(game.Players:GetChildren()) do  
-	if v.Name ~= game.Players.LocalPlayer.Name then
-		table.insert(PlayerList, v.DisplayName)
-	end
+for i,v in pairs(game.Players:GetChildren()) do
+if v.Name ~= game.Players.LocalPlayer.Name then
+table.insert(PlayerList, v.DisplayName)
+end
 end
 local DropdownPlayer = Main_Pvp:addDropdown("Select Player", SelectedPlayer, PlayerList, function(Value)
     SelectedPlayer = Value
 end)
 Main_Pvp:addButton("Refresh Player",function()
-	NewPlayerList = {}
-	for i,v in pairs(game.Players:GetChildren()) do  
+NewPlayerList = {}
+for i,v in pairs(game.Players:GetChildren()) do
         if v.Name ~= game.Players.LocalPlayer.Name then
             table.insert(NewPlayerList, v.DisplayName)
         end
     end
-	DropdownPlayer:Clear()
-	DropdownPlayer:Refresh(NewPlayerList)
+DropdownPlayer:Clear()
+DropdownPlayer:Refresh(NewPlayerList)
 end)
 task.spawn(function()
     while wait() do
         pcall(function()
-            for i,v in pairs(game.Players:GetChildren()) do  
+            for i,v in pairs(game.Players:GetChildren()) do
                 if v.DisplayName == SelectedPlayer then
                     SelectedPlayer = v.Name
                 end
@@ -9090,17 +9076,15 @@ task.spawn(function()
         end)
     end
 end)
-
 Main_Pvp:addToggle("Spectate Player", Spectate, function(value)
-	Spectate = value
-	local plr1 = game.Players.LocalPlayer.Character.Humanoid
-	local plr2 = game.Players:FindFirstChild(SelectedPlayer)
-	repeat task.wait()
-		game.Workspace.Camera.CameraSubject = plr2.Character.Humanoid
-	until Spectate == false 
-	game.Workspace.Camera.CameraSubject = plr1
+Spectate = value
+local plr1 = game.Players.LocalPlayer.Character.Humanoid
+local plr2 = game.Players:FindFirstChild(SelectedPlayer)
+repeat task.wait()
+game.Workspace.Camera.CameraSubject = plr2.Character.Humanoid
+until Spectate == false
+game.Workspace.Camera.CameraSubject = plr1
 end)
-
 Main_Pvp:addToggle("Combat Player", TweenToPlayer, function(Value)
     TweenToPlayer = Value
     CancelTween(TweenToPlayer)
@@ -9126,11 +9110,9 @@ spawn(function()
         end
     end
 end)
-
 Main_Pvp:addToggle("Aimbot Skill", AimbotSkillPlayer, function(Value)
     AimbotSkillPlayer = Value
 end)
-
 spawn(function()
     local gg = getrawmetatable(game)
     local old = gg.__namecall
@@ -9155,10 +9137,9 @@ spawn(function()
         return old(...)
     end)
 end)
-
 spawn(function()
     while task.wait() do
-        if AimbotSkillPlayer then 
+        if AimbotSkillPlayer then
             pcall(function()
                 for i,v in pairs(game.Players:GetChildren()) do
                     if v.Name == Player_Name and v.Character:FindFirstChild("Humanoid") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character.Humanoid.Health > 0 then
@@ -9194,27 +9175,364 @@ spawn(function()
         end
     end
 end)
-
 ----------------------------------------------------//----------------------------------------------------
 --// PVP RIGHT
-
 local Skill_Pvp = Pvp_Right:addMenu("#Skill Setting")
-
 Skill_Pvp:addToggle('Skill Z', PvpSkillZ, function(Value)
     PvpSkillZ = Value
 end)
-
 Skill_Pvp:addToggle('Skill X', PvpSkillX, function(Value)
     PvpSkillX = Value
 end)
-
 Skill_Pvp:addToggle('Skill C', PvpSkillC, function(Value)
     PvpSkillC = Value
 end)
-
 Skill_Pvp:addToggle('Skill V', PvpSkillV, function(Value)
     PvpSkillV = Value
+end) 
+-- Integrated logic from script 2: Remove lava for no spawn damage
+for i,v in pairs(game.Workspace:GetDescendants()) do
+    if v.Name == "Lava" then
+        v:Destroy()
+    end
+end
+for i,v in pairs(game.ReplicatedStorage:GetDescendants()) do
+    if v.Name == "Lava" then
+        v:Destroy()
+    end
+end
+
+-- Determine sea
+local NewWorld = false
+local ThreeWorld = false
+if game:GetService("Players").LocalPlayer.leaderstats.Level.Value >= 700 and game:GetService("Players").LocalPlayer.leaderstats.Level.Value < 1500 then
+    NewWorld = true
+elseif game:GetService("Players").LocalPlayer.leaderstats.Level.Value >= 1500 then
+    ThreeWorld = true
+end
+
+-- Safe CFrame based on sea
+local SafeCFrame
+if NewWorld then
+    SafeCFrame = CFrame.new(266.227783,1.39509034, 1857.00732)
+elseif ThreeWorld then
+    SafeCFrame = CFrame.new(-12554.9443, 337.194092, -7501.44727, 0.906377554, 4.23948272e-08, -0.422468632, -1.89128269e-08, 1, 5.97740595e-08, 0.422468632, -4.61877896e-08, 0.906377554)
+else
+    SafeCFrame = CFrame.new(-390.096313, 331.886475, 673.464966) -- Default
+end
+
+-- Hop function from script 2
+function Hopey()
+    local PlaceID = game.PlaceId
+    local AllIDs = {}
+    local foundAnything = ""
+    local actualHour = os.date("!*t").hour
+    local Deleted = false
+    function TPReturner()
+        local Site;
+        if foundAnything == "" then
+            Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100'))
+        else
+            Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100&cursor=' .. foundAnything))
+        end
+        local ID = ""
+        if Site.nextPageCursor and Site.nextPageCursor ~= "null" and Site.nextPageCursor ~= nil then
+            foundAnything = Site.nextPageCursor
+        end
+        local num = 0;
+        for i,v in pairs(Site.data) do
+            local Possible = true
+            ID = tostring(v.id)
+            if tonumber(v.maxPlayers) > tonumber(v.playing) then
+                for _,Existing in pairs(AllIDs) do
+                    if num ~= 0 then
+                        if ID == tostring(Existing) then
+                            Possible = false
+                        end
+                    else
+                        if tonumber(actualHour) ~= tonumber(Existing) then
+                            local delFile = pcall(function()
+                                AllIDs = {}
+                                table.insert(AllIDs, actualHour)
+                            end)
+                        end
+                    end
+                    num = num + 1
+                end
+                if Possible == true then
+                    table.insert(AllIDs, ID)
+                    wait()
+                    pcall(function()
+                        wait()
+                        game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
+                    end)
+                    wait(4)
+                end
+            end
+        end
+    end
+    function Teleport()
+        while wait() do
+            pcall(function()
+                TPReturner()
+                if foundAnything ~= "" then
+                    TPReturner()
+                end
+            end)
+        end
+    end
+    Teleport()
+end
+
+-- Add Gun Aimbot toggle (separate for gun)
+local AimbotGun = false
+Skill_Pvp:addToggle('Aimbot Gun', AimbotGun, function(Value)
+    AimbotGun = Value
 end)
+
+-- Mouse event for gun aimbot
+local lp = game:GetService('Players').LocalPlayer
+local mouse = lp:GetMouse()
+mouse.Button1Down:Connect(function()
+    if AimbotGun and game.Players.LocalPlayer.Character:FindFirstChild(SelectWeaponPvp) and PvpSelectedWeapon == "Gun" then
+        local targetPlayer = game:GetService("Players"):FindFirstChild(Player_Name)
+        if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            local args = {
+                [1] = targetPlayer.Character.HumanoidRootPart.Position,
+                [2] = targetPlayer.Character.HumanoidRootPart
+            }
+            game:GetService("Players").LocalPlayer.Character[SelectWeaponPvp].RemoteFunctionShoot:InvokeServer(unpack(args))
+        end
+    end
+end)
+
+-- Add Kill Player (Gun) toggle
+local KillPlayerGun = false
+Main_Pvp:addToggle("Kill Player (Gun)", KillPlayerGun, function(Value)
+    KillPlayerGun = Value
+    if Value then
+        PvpSelectedWeapon = "Gun"
+    end
+end)
+
+spawn(function()
+    while task.wait() do
+        if KillPlayerGun then
+            pcall(function()
+                local player = game:GetService("Players"):FindFirstChild(SelectedPlayer)
+                if player and player.Character and player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.Health > 0 then
+                    repeat task.wait()
+                        EquipTool(SelectWeaponPvp)
+                        player.Character.HumanoidRootPart.Size = Vector3.new(60,60,60)
+                        Tween(player.Character.HumanoidRootPart.CFrame * CFrame.new(0,50,0))
+                        Player_Name = player.Name
+                        game:GetService'VirtualUser':CaptureController()
+                        game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
+                    until not KillPlayerGun or player.Character.Humanoid.Health == 0 or not game:GetService("Players"):FindFirstChild(player.Name)
+                    player.Character.HumanoidRootPart.Size = Vector3.new(2,2,1)
+                end
+            end)
+        end
+    end
+end)
+
+-- Add Auto Bounty with Hop
+local AutoBounty = false
+local Auto_Bounty = Pvp_Right:addMenu("#Auto Bounty")
+Auto_Bounty:addToggle("Auto Bounty with Hop", AutoBounty, function(Value)
+    AutoBounty = Value
+    if Value then
+        PvpSelectedWeapon = "Gun"
+    end
+end)
+
+local Change1 = false
+local Hop = false
+
+spawn(function()
+    while wait() do
+        if AutoBounty then
+            pcall(function()
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CrewBBG:Destroy()
+            end)
+        end
+    end
+end)
+
+spawn(function()
+    while wait() do
+        if AutoBounty then
+            pcall(function()
+                wait(300)
+                print("Hop : on")
+                Hop = true
+            end)
+        end
+    end
+end)
+
+spawn(function()
+    while wait() do
+        if Hop == true then
+            pcall(function()
+                AutoBounty = false
+                if game:GetService("Players")["LocalPlayer"].PlayerGui.Main.InCombat.Visible == false then
+                    Tween(SafeCFrame)
+                    Hopey()
+                end
+            end)
+        end
+    end
+end)
+
+spawn(function()
+    while wait(10) do
+        pcall(function()
+            if AutoBounty then
+                if game:GetService("Players")["LocalPlayer"].PlayerGui.Main.InCombat.Visible == false then
+                    wait(2)
+                    if game:GetService("Players")["LocalPlayer"].PlayerGui.Main.InCombat.Visible == false then
+                        Change1 = true
+                    end
+                end
+            end
+        end)
+    end
+end)
+
+spawn(function()
+    while wait(10) do
+        pcall(function()
+            if AutoBounty then
+                if game:GetService("Players")["LocalPlayer"].PlayerGui.Main.SafeZone.Visible == true then
+                    wait(2)
+                    if game:GetService("Players")["LocalPlayer"].PlayerGui.Main.SafeZone.Visible == true then
+                        Change1 = true
+                    end
+                end
+            end
+        end)
+    end
+end)
+
+spawn(function()
+    while wait() do
+        pcall(function()
+            if AutoBounty then
+                if game:GetService("Players")["LocalPlayer"].PlayerGui.Main.PvpDisabled.Visible == true then
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("EnablePvp")
+                end
+            end
+        end)
+    end
+end)
+
+spawn(function()
+    while wait() do
+        pcall(function()
+            if AutoBounty then
+                if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
+                end
+            end
+        end)
+    end
+end)
+
+spawn(function ()
+    while wait() do
+        pcall(function()
+            if AutoBounty then
+                if game:GetService("Players").localPlayer.PlayerGui.Notifications.NotificationTemplate then
+                    if game:GetService("Players").localPlayer.PlayerGui.Notifications.NotificationTemplate.Text:find("Cannot") or game:GetService("Players").localPlayer.PlayerGui.Notifications.NotificationTemplate.Text:find("can't") then
+                        Change1 = true
+                        for i, v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.Notifications:GetChildren()) do
+                            v:Destroy()
+                        end
+                    end
+                end
+            end
+        end)
+    end
+end)
+
+spawn(function()
+    while wait() do
+        pcall(function()
+            if AutoBounty then
+                game:GetService'VirtualUser':CaptureController()
+                game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
+            end
+        end)
+    end
+end)
+
+spawn(function()
+    while wait() do
+        if AutoBounty then
+            pcall(function()
+                for i, v in pairs(game:GetService("Workspace").Characters:GetChildren()) do
+                    if game:GetService("Players")[v.Name].leaderstats.Level.Value >= 1200 and v.Name ~= game.Players.LocalPlayer.Name and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") then
+                        if game.Players.LocalPlayer.Character.Humanoid.Health > game.Players.LocalPlayer.Character.Humanoid.MaxHealth * 0.35 then
+                            local hpmun = v.Humanoid.Health
+                            repeat task.wait()
+                                EquipTool(SelectWeaponPvp)
+                                v.HumanoidRootPart.CanCollide = false
+                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                                Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,65,0))
+                                Player_Name = v.Name
+                                game:GetService'VirtualUser':CaptureController()
+                                game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
+                            until AutoBounty == false or v.Humanoid.Health <= 0 or not v:FindFirstChild("HumanoidRootPart") or not v:FindFirstChild("Humanoid") or Change1 == true
+                            Change1 = false
+                        else
+                            repeat task.wait()
+                                Tween(SafeCFrame)
+                            until AutoBounty == false or game.Players.LocalPlayer.Character.Humanoid.Health >= game.Players.LocalPlayer.Character.Humanoid.MaxHealth
+                        end
+                    end
+                end
+            end)
+        end
+    end
+end)
+
+spawn(function ()
+    while wait(30) do
+        pcall(function()
+            if AutoBounty then
+                for i, v in pairs(game:GetService("Workspace").Characters:GetChildren()) do
+                    if v.Name == Player_Name and v.Humanoid.Health == v.Humanoid.MaxHealth then
+                        Change1 = true
+                    end
+                end
+            end
+        end)
+    end
+end)
+
+spawn(function()
+    game:GetService('RunService').Stepped:connect(function()
+        if AutoBounty == true or Hop == true then
+            game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+        end
+    end)
+end)
+
+-- Additional from script 2: Copy Pant and Shirt, Teleport Player (added to Main_Pvp)
+Main_Pvp:addButton("Teleport Player",function()
+    local plr1 = game.Players.LocalPlayer.Character
+    local plr2 = game.Players:FindFirstChild(SelectedPlayer)
+    plr1.HumanoidRootPart.CFrame = plr2.Character.HumanoidRootPart.CFrame
+end)
+
+Main_Pvp:addButton("Copy Pant and Shirt", function()
+    local plr1 = game.Players.LocalPlayer.Character
+    local plr2 = game.Players:FindFirstChild(SelectedPlayer)
+    plr1.Shirt.ShirtTemplate = plr2.Character.Shirt.ShirtTemplate
+    plr1.Pants.PantsTemplate = plr2.Character.Pants.PantsTemplate
+end)
+----------------------------------------------------//----------------------------------------------------
 ----------------------------------------------------//----------------------------------------------------
 --// TELEPORTSTATUS LEFT
 local TeleportStatus_Left = Tab.Tab_5:addSection()
